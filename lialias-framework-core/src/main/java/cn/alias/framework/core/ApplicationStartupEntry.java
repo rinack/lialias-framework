@@ -22,7 +22,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.SimpleCommandLinePropertySource;
 import org.springframework.util.StringUtils;
 
-@ComponentScan({ "lialias.framework.core", "${lialias.module.basePackages:}" })
+@ComponentScan({ "cn.alias.framework.core", "${alias.module.basePackages:}" })
 @SpringBootApplication
 public class ApplicationStartupEntry {
 

@@ -10,7 +10,8 @@
     	<module>lialias-framework-websphere</module>
     	<module>lialias-framework-core</module>
     	<module>lialias-framework-example</module>
-	</modules>
+    <module>lialias-framework-sapjco</module>
+  </modules>
 	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
