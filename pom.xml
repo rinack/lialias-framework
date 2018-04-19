@@ -11,6 +11,7 @@
     	<module>lialias-framework-core</module>
     	<module>lialias-framework-example</module>
     <module>lialias-framework-sapjco</module>
+    <module>lialias-framework-common</module>
   </modules>
 	
 	<properties>
