@@ -73,7 +73,7 @@
 
 	</dependencies>
 	
-		<distributionManagement>
+	<distributionManagement>
         <repository>
             <id>localRepository</id>
             <url>file:D:/ProgramFiles/apache-maven-3.3.9/repository</url>
