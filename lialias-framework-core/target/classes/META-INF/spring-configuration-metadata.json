@@ -1,0 +1,18 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "cn.alias.framework.core.configuration.DataSourceConfig",
+      "name": "spring.datasource.primary",
+      "sourceMethod": "public javax.sql.DataSource primaryDataSource() ",
+      "type": "javax.sql.DataSource"
+    },
+    {
+      "sourceType": "cn.alias.framework.core.configuration.DataSourceConfig",
+      "name": "spring.datasource.secondary",
+      "sourceMethod": "public javax.sql.DataSource secondaryDataSource() ",
+      "type": "javax.sql.DataSource"
+    }
+  ],
+  "properties": []
+}

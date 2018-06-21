@@ -1,0 +1,70 @@
+package cn.lialias.framework.cache.aspect;
+
+import java.lang.reflect.Method;
+
+import org.springframework.expression.EvaluationContext;
+import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
+
+public class CacheOperationContext {
+
+	private final Method method;
+	private final Object[] args;
+	private final Object target;
+	private final Class<?> targetClass;
+	private final MethodCacheKey methodCacheKey;
+
+	private final ExpressionEvaluator evaluator = new ExpressionEvaluator();
+	private KeyGenerator keyGenerator = new SimpleKeyGenerator();
+	protected String cachekey;
+
+	public CacheOperationContext(Method method, Object[] args, Object target, Class<?> targetClass) {
+		this.method = method;
+		this.args = extractArgs(method, args);
+		this.target = target;
+		this.targetClass = targetClass;
+		this.methodCacheKey = new MethodCacheKey(method, targetClass);
+	}
+
+	public Object getTarget() {
+		return this.target;
+	}
+
+	public Method getMethod() {
+		return method;
+	}
+
+	public Object[] getArgs() {
+		return this.args;
+	}
+
+	private Object[] extractArgs(Method method, Object[] args) {
+		if (!method.isVarArgs()) {
+			return args;
+		}
+		Object[] varArgs = ObjectUtils.toObjectArray(args[args.length - 1]);
+		Object[] combinedArgs = new Object[args.length - 1 + varArgs.length];
+		System.arraycopy(args, 0, combinedArgs, 0, args.length - 1);
+		System.arraycopy(varArgs, 0, combinedArgs, args.length - 1, varArgs.length);
+		return combinedArgs;
+	}
+
+	/**
+	 * Compute the key for the given caching operation.
+	 * 
+	 * @return the generated key, or {@code null} if none can be generated
+	 */
+	public Object generateKey(String cachekey, Object result) {
+		if (StringUtils.hasText(cachekey)) {
+			EvaluationContext evaluationContext = createEvaluationContext(result);
+			return evaluator.key(cachekey, this.methodCacheKey, evaluationContext);
+		}
+		return keyGenerator.generate(this.target, this.method, this.args);
+	}
+
+	private EvaluationContext createEvaluationContext(Object result) {
+		return evaluator.createEvaluationContext(this.method,
+				this.args, this.target, this.targetClass, result);
+	}
+
+}
